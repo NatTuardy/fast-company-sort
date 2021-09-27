@@ -14,7 +14,7 @@ const App = () => {
   const [professions, setProfessions] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProf, setSelectedProf] = useState();
-  const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
+  const [sortBy, setSortBy] = useState({ path "name", order: "asc" });
   useEffect(() => {
     api.users.fetchAll().then((date) => setUsers(date));
     api.professions.fetchAll().then((date) => setProfessions(date));
@@ -28,10 +28,10 @@ const App = () => {
   };
 
   const handleToggleBookmark = (id) => {
-    console.log(id);
+    // console.log(id);
     const newArr = users.map((user) => {
-      console.log("2", user);
-      return user._id === id ? { ...user, status: !user.status } : user;
+      // console.log("2", user);
+      return user._id === id ? { ...user, bookmark: !user.bookmark } : user;
     });
     setUsers(newArr);
   };
@@ -61,7 +61,7 @@ const App = () => {
       }) : users;
     } else {
       filterUsers = selectedProf ? users.filter((user) => {
-        console.log("user:", user.profession, "select:", selectedProf, JSON.stringify(user.profession) === JSON.stringify(selectedProf));
+        // console.log("user:", user.profession, "select:", selectedProf, JSON.stringify(user.profession) === JSON.stringify(selectedProf));
         return JSON.stringify(user.profession) === JSON.stringify(selectedProf);
       }) : users;
     }

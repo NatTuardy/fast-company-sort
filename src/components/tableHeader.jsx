@@ -13,29 +13,23 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
       onSort({ path: item, order: "asc" });
     }
   };
+
+  const takeIcons = (item) => {
+    console.log("item :>> ", item);
+    if (selectedSort.path === item) {
+      return selectedSort.order === "asc" ? <i className="bi bi-caret-up-fill"></i> : <i className="bi bi-caret-down-fill"></i>;
+    } else {
+      return "";
+    }
+  };
+
   return (
     <thead>
       <tr>
         {Object.keys(columns).map(column => <th key={column} onClick={columns[column].path ? () => handleSort(columns[column].path) : undefined} {...{ role: columns[column].path && "button" }} scope="col">
           {columns[column].name}
+          {takeIcons(columns[column].path)}
         </th>)}
-        {/* <th onClick={() => handleSort("name")} scope="col">
-          Имя
-        </th>
-        <th scope="col">Качества</th>
-        <th onClick={() => handleSort("profession.name")} scope="col">
-          Профессия
-        </th>
-        <th onClick={() => handleSort("completedMeetings")} scope="col">
-          Встретился, раз
-        </th>
-        <th onClick={() => handleSort("rate")} scope="col">
-          Оценка
-        </th>
-        <th onClick={() => handleSort("bookmark")} scope="col">
-          Избранное
-        </th>
-        <th scope="col"></th> */}
       </tr>
     </thead>
   );

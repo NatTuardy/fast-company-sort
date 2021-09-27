@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const BookMark = ({ status, onToggle, id }) => {
-  console.log("status", status);
+  // console.log("status", status);
   return (
     <>
       <button

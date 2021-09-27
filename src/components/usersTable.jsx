@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import Users from "./users";
-import TableHeader from "./tableHeader";
-import TableBody from "./tableBody";
+// import TableHeader from "./tableHeader";
+// import TableBody from "./tableBody";
 import BookMark from "./bookmark";
+import QualitiesList from "./qualitiesList";
+import Table from "./table";
 
-const UsersTable = ({ userCrop, onSort, currentSort, onToggle, onDelete, ...rest }) => {
-  //   const handleSort = (item) => {
-  //     if (currentSort.path === item) {
-  //       onSort((currentSort) => ({ ...currentSort, order: currentSort.order === "asc" ? "desc" : "asc" }));
-  //     } else {
-  //       onSort({ path: item, order: "asc" });
-  //     }
-  //   };
+const UsersTable = ({
+  userCrop,
+  onSort,
+  currentSort,
+  onToggle,
+  onDelete,
+  ...rest
+}) => {
   const columns = {
     name: { path: "name", name: "Имя" },
-    qualities: { name: "Качества" },
+    qualities: {
+      name: "Качества",
+      component: (user) => <QualitiesList qualities={user.qualities} />,
+    },
     professions: { path: "profession.name", name: "Профессия" },
     completedMeetings: { path: "completedMeetings", name: "Встретился, раз" },
     rate: { path: "rate", name: "Оценка" },
@@ -23,7 +27,7 @@ const UsersTable = ({ userCrop, onSort, currentSort, onToggle, onDelete, ...rest
       path: "bookmark",
       name: "Избранное",
       component: (user) => (
-        <BookMark status={user.status} onToggle={() => onToggle(user._id)} />
+        <BookMark status={user.bookmark} onToggle={() => onToggle(user._id)} />
       ),
     },
     delete: {
@@ -40,17 +44,19 @@ const UsersTable = ({ userCrop, onSort, currentSort, onToggle, onDelete, ...rest
   };
 
   return (
-    <table className="table">
-      <TableHeader
-        selectedSort={currentSort}
-        onSort={onSort}
-        columns={columns}
-      />
-      <TableBody {...{ columns, data: userCrop }} />
-      {/* <tbody>
-        <Users users={userCrop} {...rest} />
-      </tbody> */}
-    </table>
+    <Table selectedSort={currentSort}
+      onSort={onSort}
+      columns={columns}
+      data={userCrop}
+    />
+    // <Table>
+    //   <TableHeader
+    //     selectedSort={currentSort}
+    //     onSort={onSort}
+    //     columns={columns}
+    //   />
+    //   <TableBody {...{ columns, data: userCrop }} />
+    // </Table>
   );
 };
 
